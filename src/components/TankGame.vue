@@ -185,7 +185,6 @@ const lives = ref(3)
 // 游戏上下文
 let ctx: CanvasRenderingContext2D | null = null
 let animationId: number | null = null
-let lastTime = 0
 
 // 游戏对象
 const player = ref({
@@ -774,10 +773,7 @@ function drawTank(x: number, y: number, width: number, height: number, direction
 }
 
 // 游戏循环
-function gameLoop(timestamp: number) {
-  const deltaTime = timestamp - lastTime
-  lastTime = timestamp
-  
+function gameLoop() {
   update()
   draw()
   
@@ -843,7 +839,7 @@ function shoot() {
     width: 6,
     height: 12,
     speed: 8,
-    direction: player.value.direction,
+    direction: player.value.direction as 'up' | 'down' | 'left' | 'right',
     isPlayer: true,
     color: '#00ff88'
   })
